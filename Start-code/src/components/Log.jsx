@@ -1,12 +1,12 @@
-function Log({logs : {isPlayer, isDamage, point}}){
+function Log({logs}){
     return (
         <section id="log" className="container">
         <h2>Battle Log</h2>
         <ul>
             {logs.map((log, index) => (
                 <li key={index}>
-                <span>{isPlayer? "Player" : "Monster"}</span>
-                <span>{isDamage? "attaked for" : "heals for"} <span className={isDamage? "log--damage" : "log--heal"}>{point}</span></span>
+                <span>{log.isPlayer? "Player" : "Monster"}</span>
+                <span>{log.text}</span>
             </li>
             ))}
         </ul>
