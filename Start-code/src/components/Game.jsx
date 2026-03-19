@@ -27,6 +27,8 @@ function createLogHeal(healing) {
   };
 }
 
+// this Game component will return every other Game material components
+
 function Game() {
   // ----------------------------------------------------------------------------------------------------------
   // STATES & VARIABLES
