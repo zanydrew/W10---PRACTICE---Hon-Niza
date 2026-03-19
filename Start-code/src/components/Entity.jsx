@@ -5,9 +5,8 @@ function Entity({entity_name, entity_health}) {
     // const [health, setHealth] = React.useState(0);
     //
     // function updateHealth(health) {
-    //     const healthWidth = `${health * 10}%`;
     //     return {
-    //         width: healthWidth
+    //         width: `${health}%`
     //     }
     // }
 
@@ -15,7 +14,7 @@ function Entity({entity_name, entity_health}) {
         <section className="container">
             <h2>{entity_name}</h2>
             <div className="healthbar">
-                <div style={updateHealth()} className="healthbar__value"></div>
+                <div style={{width :`${entity_health}%`}} className="healthbar__value"></div>
             </div>
         </section>
     );

@@ -1,4 +1,5 @@
 import React from "react";
+import Entity from "./Entity.jsx";
 
 // ----------------------------------------------------------------------------------------------------------
 // HELPER FUNCTIONS
@@ -34,6 +35,9 @@ function Game() {
   // STATES & VARIABLES
   // ----------------------------------------------------------------------------------------------------------
 
+  const [playerHealth, setPlayerHealth] = React.useState(100);
+  const [monsterHealth, setMonsterHealth] = React.useState(100);
+
   // ----------------------------------------------------------------------------------------------------------
   // BUTTONS EVENT FUNCTIONS
   // ----------------------------------------------------------------------------------------------------------
@@ -45,7 +49,10 @@ function Game() {
   // ----------------------------------------------------------------------------------------------------------
   // MAIN  TEMPLATE
   // ----------------------------------------------------------------------------------------------------------
-  return <></>;
+  return <>
+    <Entity entity_name="Your Health" entity_health={playerHealth} />
+    <Entity entity_name="Monster Health" entity_health={monsterHealth} />
+  </>;
 }
 
 export default Game;
