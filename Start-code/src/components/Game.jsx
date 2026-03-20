@@ -1,6 +1,7 @@
 import React from "react";
 import Entity from "./Entity.jsx";
 import GameOver from "./GameOver.jsx";
+import Log from "./Log.jsx";
 
 // ----------------------------------------------------------------------------------------------------------
 // HELPER FUNCTIONS
@@ -130,9 +131,26 @@ function Game() {
   // ----------------------------------------------------------------------------------------------------------
   // MAIN  TEMPLATE
   // ----------------------------------------------------------------------------------------------------------
+
+  let result = null;
+
+  if (playerHealth <= 0 && monsterHealth <= 0) {
+    result = "Draw!";
+  } else if (playerHealth <= 0 ) {
+    result = "You lost!";
+  } else if (monsterHealth <= 0) {
+    result = "You won!";
+  }
+
+  const isGameOver = result !== null
   return <>
     <Entity entity_name="Your Health" entity_health={playerHealth} />
     <Entity entity_name="Monster Health" entity_health={monsterHealth} />
+
+    {renderControl(isGameOver)}
+    {renderControl(result)}
+
+  <Log logs={logs} />
   </>;
 }
 
