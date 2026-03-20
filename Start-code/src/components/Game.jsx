@@ -1,5 +1,6 @@
 import React from "react";
 import Entity from "./Entity.jsx";
+import GameOver from "./GameOver.jsx";
 
 // ----------------------------------------------------------------------------------------------------------
 // HELPER FUNCTIONS
@@ -37,14 +38,94 @@ function Game() {
 
   const [playerHealth, setPlayerHealth] = React.useState(100);
   const [monsterHealth, setMonsterHealth] = React.useState(100);
+  const [log, setLog] = React.useState([]);
+  const [turn, setTurn] = React.useState(0);
 
   // ----------------------------------------------------------------------------------------------------------
   // BUTTONS EVENT FUNCTIONS
   // ----------------------------------------------------------------------------------------------------------
 
+  function addLog(log){
+    setLog((prev) => [...prev, log]);
+  }
+
+  function handleAttack(){
+    const damage = getRandomValue(5,12);
+    const monsterDamage = getRandomValue(8,15);
+
+    setMonsterHealth((prev) => Math.max(prev-damage, 0));
+    setPlayerHealth(prev => Math.max(prev-monsterDamage, 0));
+
+    addLog(createLogAttack(true, damage));
+    addLog(createLogAttack(false, monsterDamage));
+
+    setTurn((prev) => prev+1);
+
+  }
+
+  function handleSpecialAttack(){
+    if (turn % 3 !== 0) return;
+
+    const damage = getRandomValue(10, 25);
+    const monsterDamage = getRandomValue(8, 15);
+
+    setMonsterHealth((prev) => Math.max(prev - damage, 0));
+    setPlayerHealth((prev) => Math.max(prev - monsterDamage, 0));
+
+    addLog(createLogAttack(true, damage));
+    addLog(createLogAttack(false, monsterDamage));
+
+    setTurn((prev) => prev + 1);
+  }
+
+  function handleHeal(){
+    const heal = getRandomValue(8, 20);
+    const monsterDamage = getRandomValue(8, 15);
+
+    setPlayerHealth((prev) => Math.max(prev - heal, 0));
+    setPlayerHealth(prev => Math.max(prev + monsterDamage, 100));
+
+    addLog(createLogHeal(heal));
+    addLog(createLogHeal(false, monsterDamage));
+
+    setTurn((prev) => prev+1);
+  }
+
+  function handleSurrender (){
+    setPlayerHealth(0);
+  }
+
+  function restartGame(){
+    setPlayerHealth(100);
+    setMonsterHealth(100);
+    setLog([]);
+    setTurn(0);
+  }
   // ----------------------------------------------------------------------------------------------------------
   // JSX FUNCTIONS
   // ----------------------------------------------------------------------------------------------------------
+
+  function renderControl(isGameOver){
+    if (isGameOver){
+      return null;
+    }
+
+    return (
+        <section id="controls">
+          <button onClick={handleAttack}>ATTACK</button>
+          <button onClick={handleSpecialAttack}>SPECIAL !</button>
+          <button onClick={handleHeal}>HEAL</button>
+          <button onClick={handleSurrender}>KILL YOURSELF</button>
+        </section>
+    )
+  }
+
+  function renderGameOver(result) {
+    if (!result) return null;
+    return (
+        <GameOver title={result} restartGame={restartGame}/>
+    )
+  }
 
   // ----------------------------------------------------------------------------------------------------------
   // MAIN  TEMPLATE
