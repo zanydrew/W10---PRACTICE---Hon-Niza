@@ -2,14 +2,6 @@ import React from "react";
 import {useState} from "react";
 
 function Entity({entity_name, entity_health}) {
-    // const [health, setHealth] = React.useState(0);
-    //
-    // function updateHealth(health) {
-    //     return {
-    //         width: `${health}%`
-    //     }
-    // }
-
     return (
         <section className="container">
             <h2>{entity_name}</h2>

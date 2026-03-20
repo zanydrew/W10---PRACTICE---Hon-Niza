@@ -47,7 +47,7 @@ function Game() {
   // ----------------------------------------------------------------------------------------------------------
 
   function addLog(log){
-    setLog((prev) => [...prev, log]);
+    setLog((prev) => [log,  ...prev]);
   }
 
   function handleAttack(){
@@ -83,11 +83,11 @@ function Game() {
     const heal = getRandomValue(8, 20);
     const monsterDamage = getRandomValue(8, 15);
 
-    setPlayerHealth((prev) => Math.max(prev - heal, 0));
     setPlayerHealth(prev => Math.max(prev + monsterDamage, 100));
+    setPlayerHealth((prev) => Math.max(prev - heal, 0));
 
     addLog(createLogHeal(heal));
-    addLog(createLogHeal(false, monsterDamage));
+    addLog(createLogAttack(false, monsterDamage));
 
     setTurn((prev) => prev+1);
   }
@@ -112,9 +112,9 @@ function Game() {
     }
 
     return (
-        <section id="controls">
+        <section className="container">
           <button onClick={handleAttack}>ATTACK</button>
-          <button onClick={handleSpecialAttack}>SPECIAL !</button>
+          <button onClick={handleSpecialAttack} disabled={turn %3 !==0}>SPECIAL</button>
           <button onClick={handleHeal}>HEAL</button>
           <button onClick={handleSurrender}>KILL YOURSELF</button>
         </section>
@@ -148,9 +148,9 @@ function Game() {
     <Entity entity_name="Monster Health" entity_health={monsterHealth} />
 
     {renderControl(isGameOver)}
-    {renderControl(result)}
+    {renderGameOver(result)}
 
-  <Log logs={logs} />
+  <Log logs={log} />
   </>;
 }
 

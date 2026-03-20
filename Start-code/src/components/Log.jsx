@@ -6,7 +6,7 @@ function Log({logs}){
             {logs.map((log, index) => (
                 <li key={index}>
                 <span>{log.isPlayer? "Player" : "Monster"}</span>
-                <span>{log.text}</span>
+                <span className={log.isDamage? "log--damage" : "log--heal"}>{log.text}</span>
             </li>
             ))}
         </ul>
