@@ -83,8 +83,8 @@ function Game() {
     const heal = getRandomValue(8, 20);
     const monsterDamage = getRandomValue(8, 15);
 
-    setPlayerHealth(prev => Math.max(prev + monsterDamage, 100));
-    setPlayerHealth((prev) => Math.max(prev - heal, 0));
+    setPlayerHealth(prev => Math.max(prev + heal, 100));
+    setPlayerHealth((prev) => Math.max(prev - monsterDamage, 0));
 
     addLog(createLogHeal(heal));
     addLog(createLogAttack(false, monsterDamage));
